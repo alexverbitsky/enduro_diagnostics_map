@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "163753077495",
+    "project_id": "enduro-diagnostics-map",
+    "storage_bucket": "enduro-diagnostics-map.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163753077495:android:d4d006132dae5e36eb81f2",
+        "android_client_info": {
+          "package_name": "com.enduro.service"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLamU9JN7WQzHwWtaXWOv8SoUhkveLOVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

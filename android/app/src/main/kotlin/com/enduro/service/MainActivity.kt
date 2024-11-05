@@ -1,4 +1,4 @@
-package com.example.enduro_diagnostics_map
+package com.enduro.service
 
 import io.flutter.embedding.android.FlutterActivity
 

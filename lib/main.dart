@@ -1,10 +1,20 @@
-import 'package:enduro_diagnostics_map/features/diagnostics/widgets/diagnostics_tab.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/view/diagnostics_tab.dart';
 import 'package:enduro_diagnostics_map/features/settings/widgets/settings_tab.dart';
+import 'package:enduro_diagnostics_map/locator.dart';
 import 'package:enduro_diagnostics_map/shared/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  setupLocator();
+
   runApp(const MyApp());
 }
 

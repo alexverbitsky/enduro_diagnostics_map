@@ -1,4 +1,4 @@
-import 'package:enduro_diagnostics_map/features/diagnostics/widgets/diagnostics_screen.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/view/diagnostics_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

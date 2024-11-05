@@ -17,15 +17,6 @@ class DiagnosticsItem extends StatefulWidget {
 class _DiagnosticsItemState extends State<DiagnosticsItem> {
   bool _selected = false;
 
-  final WidgetStateProperty<Icon?> thumbIcon = WidgetStateProperty.resolveWith<Icon?>(
-    (Set<WidgetState> states) {
-      if (states.contains(WidgetState.selected)) {
-        return const Icon(Icons.check);
-      }
-      return const Icon(Icons.close);
-    },
-  );
-
   void toggle() {
     setState(() {
       _selected = !_selected;
@@ -49,14 +40,20 @@ class _DiagnosticsItemState extends State<DiagnosticsItem> {
                 maxLines: 10,
               ),
             ),
-            const SizedBox(width: 16),
-            Switch(
-              thumbIcon: thumbIcon,
-              activeColor: Colors.green,
-              activeTrackColor: Theme.of(context).scaffoldBackgroundColor,
-              inactiveTrackColor: Theme.of(context).scaffoldBackgroundColor,
-              value: _selected,
-              onChanged: (_) => toggle(),
+            const SizedBox(width: 24),
+            AnimatedCrossFade(
+              firstChild: const Icon(
+                Icons.check,
+                color: Colors.green,
+                size: 36,
+              ),
+              secondChild: const Icon(
+                Icons.close,
+                color: Colors.red,
+                size: 36,
+              ),
+              crossFadeState: _selected ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              duration: const Duration(milliseconds: 200),
             ),
           ],
         ),
