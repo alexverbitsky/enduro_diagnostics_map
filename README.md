@@ -4,4 +4,3 @@
 1. Add splash screen
 2. Add Telegram login
 3. Add BD
-4. Add PDF export
