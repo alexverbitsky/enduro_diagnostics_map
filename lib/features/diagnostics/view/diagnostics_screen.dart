@@ -24,17 +24,21 @@ class _DiagnosticsScreenState extends State<DiagnosticsScreen> {
         body: SafeArea(
           child: BlocBuilder<DiagnosticsProcessCubit, DiagnosticsProcessState>(
             builder: (context, state) {
+              final cubit = context.read<DiagnosticsProcessCubit>();
+
               return Stack(
                 children: [
                   if (state is DiagnosticsProcessDataLoadedState)
                     DiagnosticsForm(
                       diagnosticsTasks: state.diagnosticsTasks,
-                      onTaskToggled: context.read<DiagnosticsProcessCubit>().toggleTask,
-                      onCustomerNameChanged: (String value) {},
-                      onMotorcycleNameChanged: (String value) {},
-                      onMechanicNameChanged: (String value) {},
-                      onExtraWorkChanged: (String value) {},
-                      onSubmit: () {},
+                      onTaskToggled: cubit.toggleTask,
+                      // TODO: Implement getting initial mechanic name
+                      initialMechanicName: null,
+                      onCustomerNameChanged: cubit.updateCustomerName,
+                      onMotorcycleNameChanged: cubit.updateMotorcycleName,
+                      onMechanicNameChanged: cubit.updateMechanicName,
+                      onExtraWorkChanged: cubit.updateExtraWork,
+                      onSubmit: cubit.submitForm,
                     ),
                   AppProgressOverlay(
                     shouldBeShown: state is! DiagnosticsProcessDataLoadedState,

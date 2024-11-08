@@ -35,4 +35,51 @@ class DiagnosticsProcessCubit extends Cubit<DiagnosticsProcessState> {
       emit(DiagnosticsProcessDataLoadedState(updatedTasks));
     }
   }
+
+  void updateCustomerName(String customerName) {
+    final currentState = state;
+
+    if (currentState is DiagnosticsProcessDataLoadedState) {
+      emit(currentState.copyWith(customerName: customerName));
+    }
+  }
+
+  void updateMotorcycleName(String motorcycleName) {
+    final currentState = state;
+
+    if (currentState is DiagnosticsProcessDataLoadedState) {
+      emit(currentState.copyWith(motorcycleName: motorcycleName));
+    }
+  }
+
+  void updateExtraWork(String extraWork) {
+    final currentState = state;
+
+    if (currentState is DiagnosticsProcessDataLoadedState) {
+      emit(currentState.copyWith(extraWork: extraWork));
+    }
+  }
+
+  void updateMechanicName(String mechanicName) {
+    final currentState = state;
+
+    if (currentState is DiagnosticsProcessDataLoadedState) {
+      emit(currentState.copyWith(mechanicName: mechanicName));
+    }
+  }
+
+  // TODO: Implement conversion to pdf
+  void submitForm() {
+    print('Form submitted');
+
+    final currentState = state;
+
+    if (currentState is DiagnosticsProcessDataLoadedState) {
+      print('Customer name: ${currentState.customerName}');
+      print('Motorcycle name: ${currentState.motorcycleName}');
+      print('Extra work: ${currentState.extraWork}');
+      print('Mechanic name: ${currentState.mechanicName}');
+      print('Tasks: ${currentState.diagnosticsTasks}');
+    }
+  }
 }
