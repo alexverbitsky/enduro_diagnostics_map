@@ -17,6 +17,8 @@ class DiagnosticsProcessDataLoadedState extends DiagnosticsProcessState {
   final String? motorcycleName;
   final String? extraWork;
   final String? mechanicName;
+  final String pdfDocumentPath;
+  final DiagnosticsProcessStatus status;
 
   const DiagnosticsProcessDataLoadedState(
     this.diagnosticsTasks, {
@@ -24,6 +26,8 @@ class DiagnosticsProcessDataLoadedState extends DiagnosticsProcessState {
     this.motorcycleName,
     this.extraWork,
     this.mechanicName,
+    this.pdfDocumentPath = '',
+    this.status = DiagnosticsProcessStatus.inProgress,
   });
 
   DiagnosticsProcessDataLoadedState copyWith({
@@ -32,6 +36,8 @@ class DiagnosticsProcessDataLoadedState extends DiagnosticsProcessState {
     String? motorcycleName,
     String? extraWork,
     String? mechanicName,
+    String? pdfDocumentPath,
+    DiagnosticsProcessStatus? status,
   }) {
     return DiagnosticsProcessDataLoadedState(
       diagnosticsTasks ?? this.diagnosticsTasks,
@@ -39,6 +45,8 @@ class DiagnosticsProcessDataLoadedState extends DiagnosticsProcessState {
       motorcycleName: motorcycleName ?? this.motorcycleName,
       extraWork: extraWork ?? this.extraWork,
       mechanicName: mechanicName ?? this.mechanicName,
+      pdfDocumentPath: pdfDocumentPath ?? this.pdfDocumentPath,
+      status: status ?? this.status,
     );
   }
 
@@ -49,9 +57,16 @@ class DiagnosticsProcessDataLoadedState extends DiagnosticsProcessState {
         motorcycleName,
         extraWork,
         mechanicName,
+        pdfDocumentPath,
+        status,
       ];
 }
 
 class DiagnosticsProcessErrorState extends DiagnosticsProcessState {
   const DiagnosticsProcessErrorState();
+}
+
+enum DiagnosticsProcessStatus {
+  inProgress,
+  pdfReady,
 }

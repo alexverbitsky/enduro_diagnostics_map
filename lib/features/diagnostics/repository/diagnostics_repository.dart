@@ -5,7 +5,7 @@ class DiagnosticsRepository implements BaseDiagnosticsRepository {
   @override
   Future<List<DiagnosticTaskModel>> getDiagnosticsTasks() async {
     final diagnosticTasks = await Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(milliseconds: 100),
       () => <String>[
         'Считать диагностическую информацию с помощью фирменного сканера KTM',
         'Проверить работоспособность электрической системы',

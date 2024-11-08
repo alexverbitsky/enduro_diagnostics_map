@@ -66,7 +66,7 @@ class DiagnosticsForm extends StatelessWidget {
           onChanged: onMechanicNameChanged,
           initialValue: initialMechanicName,
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 48),
         AppElevatedButton(
           title: 'Сохранить и отправить отчет',
           onSubmit: onSubmit,

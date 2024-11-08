@@ -1,6 +1,7 @@
 import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/repository/base_diagnostics_repository.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/repository/diagnostics_repository.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/util/pdf_builder.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -68,18 +69,24 @@ class DiagnosticsProcessCubit extends Cubit<DiagnosticsProcessState> {
     }
   }
 
-  // TODO: Implement conversion to pdf
-  void submitForm() {
-    print('Form submitted');
-
+  Future<void> submitForm() async {
     final currentState = state;
 
     if (currentState is DiagnosticsProcessDataLoadedState) {
-      print('Customer name: ${currentState.customerName}');
-      print('Motorcycle name: ${currentState.motorcycleName}');
-      print('Extra work: ${currentState.extraWork}');
-      print('Mechanic name: ${currentState.mechanicName}');
-      print('Tasks: ${currentState.diagnosticsTasks}');
+      final pdfPath = await generatePdf(
+        diagnosticsTasks: currentState.diagnosticsTasks,
+        customerName: currentState.customerName,
+        motorcycleName: currentState.motorcycleName,
+        extraWork: currentState.extraWork,
+        mechanicName: currentState.mechanicName,
+      );
+
+      emit(
+        currentState.copyWith(
+          pdfDocumentPath: pdfPath,
+          status: DiagnosticsProcessStatus.pdfReady,
+        ),
+      );
     }
   }
 }
