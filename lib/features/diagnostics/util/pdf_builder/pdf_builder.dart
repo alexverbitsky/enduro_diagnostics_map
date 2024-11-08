@@ -4,6 +4,7 @@ import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_tas
 import 'package:enduro_diagnostics_map/features/diagnostics/util/pdf_builder/check_list_table.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/util/pdf_builder/report_item.dart';
 import 'package:enduro_diagnostics_map/gen/assets.gen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -90,7 +91,8 @@ Future<String> generatePdf({
 
   final directory = await getApplicationDocumentsDirectory();
   final file = File('${directory.path}/diagnostics_report.pdf');
-  file.writeAsBytes(await pdf.save());
+  final bytes = await compute(_getPdfBytes, pdf);
+  await file.writeAsBytes(bytes);
 
   return file.path;
 }
@@ -132,4 +134,10 @@ Future<File> _getImageFileFromAssets(String path) async {
   ));
 
   return file;
+}
+
+Future<Uint8List> _getPdfBytes(Document pdf) async {
+  final bytes = await pdf.save();
+
+  return bytes;
 }
