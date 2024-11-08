@@ -34,6 +34,7 @@ class DiagnosticsItem extends StatelessWidget {
               child: Text(
                 value.name,
                 maxLines: 10,
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
             const SizedBox(width: 24),

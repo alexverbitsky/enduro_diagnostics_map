@@ -1,6 +1,6 @@
 import 'package:enduro_diagnostics_map/core/ui_kit/app_progress_overlay.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/cubit/diagnostics_process_cubit.dart';
-import 'package:enduro_diagnostics_map/features/diagnostics/view/diagnostics_form.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/view/diagnostics_form/diagnostics_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,6 +30,11 @@ class _DiagnosticsScreenState extends State<DiagnosticsScreen> {
                     DiagnosticsForm(
                       diagnosticsTasks: state.diagnosticsTasks,
                       onTaskToggled: context.read<DiagnosticsProcessCubit>().toggleTask,
+                      onCustomerNameChanged: (String value) {},
+                      onMotorcycleNameChanged: (String value) {},
+                      onMechanicNameChanged: (String value) {},
+                      onExtraWorkChanged: (String value) {},
+                      onSubmit: () {},
                     ),
                   AppProgressOverlay(
                     shouldBeShown: state is! DiagnosticsProcessDataLoadedState,
