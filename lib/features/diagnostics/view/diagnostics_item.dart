@@ -1,27 +1,18 @@
+import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
 import 'package:flutter/material.dart';
 
-class DiagnosticsItem extends StatefulWidget {
-  final String title;
+class DiagnosticsItem extends StatelessWidget {
+  final DiagnosticTaskModel value;
   final Function(bool) onChanged;
 
   const DiagnosticsItem({
-    required this.title,
+    required this.value,
     required this.onChanged,
     super.key,
   });
 
-  @override
-  State<DiagnosticsItem> createState() => _DiagnosticsItemState();
-}
-
-class _DiagnosticsItemState extends State<DiagnosticsItem> {
-  bool _selected = false;
-
   void toggle() {
-    setState(() {
-      _selected = !_selected;
-      widget.onChanged(_selected);
-    });
+    onChanged(!value.isCompleted);
   }
 
   @override
@@ -29,14 +20,19 @@ class _DiagnosticsItemState extends State<DiagnosticsItem> {
     return GestureDetector(
       onTap: toggle,
       behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.black.withOpacity(0.1),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Text(
-                widget.title,
+                value.name,
                 maxLines: 10,
               ),
             ),
@@ -45,14 +41,15 @@ class _DiagnosticsItemState extends State<DiagnosticsItem> {
               firstChild: const Icon(
                 Icons.check,
                 color: Colors.green,
-                size: 36,
+                size: 24,
               ),
               secondChild: const Icon(
                 Icons.close,
                 color: Colors.red,
-                size: 36,
+                size: 24,
               ),
-              crossFadeState: _selected ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              crossFadeState:
+                  value.isCompleted ? CrossFadeState.showFirst : CrossFadeState.showSecond,
               duration: const Duration(milliseconds: 200),
             ),
           ],

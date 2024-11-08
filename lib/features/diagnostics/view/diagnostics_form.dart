@@ -1,8 +1,9 @@
+import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/view/diagnostics_item.dart';
 import 'package:flutter/material.dart';
 
 class DiagnosticsForm extends StatelessWidget {
-  final List<String> diagnosticsTasks;
+  final List<DiagnosticTaskModel> diagnosticsTasks;
   final Function(int index, bool value) onTaskToggled;
 
   const DiagnosticsForm({
@@ -15,22 +16,35 @@ class DiagnosticsForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: Column(
+      child: ListView(
         children: [
-          Expanded(
-            child: ListView.separated(
-              itemCount: diagnosticsTasks.length,
-              separatorBuilder: (context, index) => const Divider(),
-              itemBuilder: (context, index) {
-                final item = diagnosticsTasks[index];
-                return DiagnosticsItem(
-                  title: item,
-                  onChanged: (value) {},
-                );
-              },
+          const Text('Заказчик:'),
+          const TextField(
+            decoration: InputDecoration.collapsed(
+              hintText: 'ФИО',
             ),
-          )
-        ],
+          ),
+          const SizedBox(height: 16),
+          const Text('Мотоцикл:'),
+          const TextField(
+            decoration: InputDecoration.collapsed(
+              hintText: 'Марка, модель, двигатель',
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Text('Диагностику провел:'),
+          const TextField(
+            decoration: InputDecoration.collapsed(
+              hintText: 'Механик',
+            ),
+          ),
+          const SizedBox(height: 16),
+          for (var i = 0; i < diagnosticsTasks.length; i++)
+            DiagnosticsItem(
+              value: diagnosticsTasks[i],
+              onChanged: (value) => onTaskToggled(i, value),
+            ),
+        ]
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/repository/base_diagnostics_repository.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/repository/diagnostics_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -17,6 +18,21 @@ class DiagnosticsProcessCubit extends Cubit<DiagnosticsProcessState> {
       emit(DiagnosticsProcessDataLoadedState(diagnosticsTasks));
     } on Exception {
       emit(const DiagnosticsProcessErrorState());
+    }
+  }
+
+  void toggleTask(int index, bool isCompleted) {
+    final currentState = state;
+
+    if (currentState is DiagnosticsProcessDataLoadedState) {
+      final updatedTasks = List<DiagnosticTaskModel>.from(currentState.diagnosticsTasks);
+
+      updatedTasks[index] = DiagnosticTaskModel(
+        name: updatedTasks[index].name,
+        isCompleted: isCompleted,
+      );
+
+      emit(DiagnosticsProcessDataLoadedState(updatedTasks));
     }
   }
 }

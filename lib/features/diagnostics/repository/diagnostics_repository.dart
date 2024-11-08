@@ -1,9 +1,10 @@
+import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/repository/base_diagnostics_repository.dart';
 
 class DiagnosticsRepository implements BaseDiagnosticsRepository {
   @override
-  Future<List<String>> getDiagnosticsTasks() async {
-    return Future.delayed(
+  Future<List<DiagnosticTaskModel>> getDiagnosticsTasks() async {
+    final diagnosticTasks = await Future.delayed(
       const Duration(seconds: 1),
       () => <String>[
         'Считать диагностическую информацию с помощью фирменного сканера KTM',
@@ -41,5 +42,14 @@ class DiagnosticsRepository implements BaseDiagnosticsRepository {
         'Проверить люфт заднего амортизатора и прогрессии (при наличии)',
       ],
     );
+
+    return diagnosticTasks
+        .map(
+          (task) => DiagnosticTaskModel(
+            name: task,
+            isCompleted: false,
+          ),
+        )
+        .toList();
   }
 }

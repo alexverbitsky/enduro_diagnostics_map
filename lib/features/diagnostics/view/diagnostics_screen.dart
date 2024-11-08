@@ -29,7 +29,7 @@ class _DiagnosticsScreenState extends State<DiagnosticsScreen> {
                   if (state is DiagnosticsProcessDataLoadedState)
                     DiagnosticsForm(
                       diagnosticsTasks: state.diagnosticsTasks,
-                      onTaskToggled: (index, value) {},
+                      onTaskToggled: context.read<DiagnosticsProcessCubit>().toggleTask,
                     ),
                   AppProgressOverlay(
                     shouldBeShown: state is! DiagnosticsProcessDataLoadedState,

@@ -12,7 +12,7 @@ class DiagnosticsProcessDataLoadingState extends DiagnosticsProcessState {
 }
 
 class DiagnosticsProcessDataLoadedState extends DiagnosticsProcessState {
-  final List<String> diagnosticsTasks;
+  final List<DiagnosticTaskModel> diagnosticsTasks;
 
   const DiagnosticsProcessDataLoadedState(this.diagnosticsTasks);
 
