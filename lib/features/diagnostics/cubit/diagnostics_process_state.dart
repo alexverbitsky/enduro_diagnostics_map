@@ -68,5 +68,6 @@ class DiagnosticsProcessErrorState extends DiagnosticsProcessState {
 
 enum DiagnosticsProcessStatus {
   inProgress,
+  generatingPdf,
   pdfReady,
 }

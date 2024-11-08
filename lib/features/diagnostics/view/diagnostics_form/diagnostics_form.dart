@@ -1,4 +1,5 @@
 import 'package:enduro_diagnostics_map/core/ui_kit/app_elevated_button.dart';
+import 'package:enduro_diagnostics_map/core/ui_kit/app_elevated_loading_button.dart';
 import 'package:enduro_diagnostics_map/core/ui_kit/app_input.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/view/diagnostics_form/diagnostics_item.dart';
@@ -12,6 +13,7 @@ class DiagnosticsForm extends StatelessWidget {
   final void Function(String value) onMechanicNameChanged;
   final void Function(String value) onExtraWorkChanged;
   final void Function() onSubmit;
+  final bool isFormLoading;
   final String? initialMechanicName;
 
   const DiagnosticsForm({
@@ -22,6 +24,7 @@ class DiagnosticsForm extends StatelessWidget {
     required this.onMechanicNameChanged,
     required this.onExtraWorkChanged,
     required this.onSubmit,
+    this.isFormLoading = false,
     this.initialMechanicName,
     super.key,
   });
@@ -32,46 +35,51 @@ class DiagnosticsForm extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: ListView(children: [
-        AppInput(
-          title: 'Заказчик:',
-          hint: 'ФИО',
-          onChanged: onCustomerNameChanged,
-        ),
-        const SizedBox(height: 16),
-        AppInput(
-          title: 'Мотоцикл:',
-          hint: 'Марка, модель, двигатель',
-          onChanged: onMotorcycleNameChanged,
-        ),
-        const SizedBox(height: 16),
-        Text('Чек-лист:', style: theme.textTheme.labelLarge),
-        const SizedBox(height: 8),
-        for (var i = 0; i < diagnosticsTasks.length; i++)
-          DiagnosticsItem(
-            value: diagnosticsTasks[i],
-            onChanged: (value) => onTaskToggled(i, value),
+      child: ListView(
+        children: [
+          AppInput(
+            title: 'Заказчик:',
+            hint: 'ФИО',
+            onChanged: onCustomerNameChanged,
           ),
-        const SizedBox(height: 16),
-        AppInput(
-          title: 'Дополнительные работы:',
-          hint: 'Что было сделано',
-          maxLines: 2,
-          onChanged: onExtraWorkChanged,
-        ),
-        const SizedBox(height: 16),
-        AppInput(
-          title: 'Диагностику провел:',
-          hint: 'Механик',
-          onChanged: onMechanicNameChanged,
-          initialValue: initialMechanicName,
-        ),
-        const SizedBox(height: 48),
-        AppElevatedButton(
-          title: 'Сохранить и отправить отчет',
-          onSubmit: onSubmit,
-        ),
-      ]),
+          const SizedBox(height: 16),
+          AppInput(
+            title: 'Мотоцикл:',
+            hint: 'Марка, модель, двигатель',
+            onChanged: onMotorcycleNameChanged,
+          ),
+          const SizedBox(height: 16),
+          Text('Чек-лист:', style: theme.textTheme.labelLarge),
+          const SizedBox(height: 8),
+          for (var i = 0; i < diagnosticsTasks.length; i++)
+            DiagnosticsItem(
+              value: diagnosticsTasks[i],
+              onChanged: (value) => onTaskToggled(i, value),
+            ),
+          const SizedBox(height: 16),
+          AppInput(
+            title: 'Дополнительные работы:',
+            hint: 'Что было сделано',
+            maxLines: 2,
+            onChanged: onExtraWorkChanged,
+          ),
+          const SizedBox(height: 16),
+          AppInput(
+            title: 'Диагностику провел:',
+            hint: 'Механик',
+            onChanged: onMechanicNameChanged,
+            initialValue: initialMechanicName,
+          ),
+          const SizedBox(height: 48),
+          if (isFormLoading)
+            const AppElevatedLoadingButton()
+          else
+            AppElevatedButton(
+              title: 'Сохранить и отправить отчет',
+              onSubmit: onSubmit,
+            ),
+        ],
+      ),
     );
   }
 }

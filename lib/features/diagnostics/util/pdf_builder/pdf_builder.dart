@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/util/pdf_builder/check_list_table.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/util/pdf_builder/report_item.dart';
 import 'package:enduro_diagnostics_map/gen/assets.gen.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -45,12 +47,23 @@ Future<String> generatePdf({
             child: Image(logoWidget, width: 150),
           ),
           SizedBox(height: 48),
-          _getReportItem('Дата отчета: ', formattedDate),
-          if (customerName != null) _getReportItem('Клиент: ', customerName),
-          if (motorcycleName != null) _getReportItem('Мотоцикл: ', motorcycleName),
+          ReportItem(
+            title: 'Дата отчета: ',
+            value: formattedDate,
+          ),
+          if (customerName != null)
+            ReportItem(
+              title: 'Клиент: ',
+              value: customerName,
+            ),
+          if (motorcycleName != null)
+            ReportItem(
+              title: 'Мотоцикл: ',
+              value: motorcycleName,
+            ),
           SizedBox(height: 24),
-          _getTable(
-            diagnosticsTasks
+          CheckListTable(
+            items: diagnosticsTasks
                 .map(
                   (task) => _getTableRow(
                     task.name,
@@ -60,8 +73,16 @@ Future<String> generatePdf({
                 .toList(),
           ),
           SizedBox(height: 24),
-          if (mechanicName != null) _getReportItem('Механик: ', mechanicName),
-          if (extraWork != null) _getReportItem('Дополнительные работы: ', extraWork),
+          if (mechanicName != null)
+            ReportItem(
+              title: 'Механик: ',
+              value: mechanicName,
+            ),
+          if (extraWork != null)
+            ReportItem(
+              title: 'Дополнительные работы: ',
+              value: extraWork,
+            ),
         ];
       },
     ),
@@ -72,31 +93,6 @@ Future<String> generatePdf({
   file.writeAsBytes(await pdf.save());
 
   return file.path;
-}
-
-Table _getTable(List<TableRow> items) {
-  return Table(
-    columnWidths: {
-      0: const FlexColumnWidth(3),
-      1: const FlexColumnWidth(1),
-    },
-    children: [
-      TableRow(
-        repeat: true,
-        decoration: const BoxDecoration(
-          border: TableBorder(
-            bottom: BorderSide(width: 1, color: PdfColors.black),
-          ),
-        ),
-        children: [
-          Text('Работа', style: TextStyle(fontWeight: FontWeight.bold)),
-          Spacer(),
-          Text('Статус', style: TextStyle(fontWeight: FontWeight.bold)),
-        ],
-      ),
-      ...items,
-    ],
-  );
 }
 
 TableRow _getTableRow(String title, MemoryImage image) {
@@ -121,20 +117,6 @@ TableRow _getTableRow(String title, MemoryImage image) {
           height: 16,
         ),
       ),
-    ],
-  );
-}
-
-Widget _getReportItem(String title, String value) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        title,
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      Text(value),
-      SizedBox(height: 4),
     ],
   );
 }

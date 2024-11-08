@@ -64,6 +64,7 @@ class _DiagnosticsScreenState extends State<DiagnosticsScreen> {
                         onMechanicNameChanged: cubit.updateMechanicName,
                         onExtraWorkChanged: cubit.updateExtraWork,
                         onSubmit: cubit.submitForm,
+                        isFormLoading: state.status == DiagnosticsProcessStatus.generatingPdf,
                       ),
                     AppProgressOverlay(
                       shouldBeShown: state is! DiagnosticsProcessDataLoadedState,
