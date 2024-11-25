@@ -21,8 +21,10 @@ dependencies:
   intl: 0.19.0
   share_plus: 10.1.2
   flutter_native_splash: 2.4.2
+
   firebase_core: 3.7.0
   firebase_remote_config: 5.1.4
+  cloud_firestore: 5.4.5
   flutter_dotenv: 5.2.1
 
 dev_dependencies:
@@ -47,8 +49,8 @@ flutter:
   uses-material-design: true
 
   assets:
-   - assets/images/
-   - .env
+    - assets/images/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -6,7 +6,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 class FirebaseRemoteConfigService implements BaseFirebaseRemoteConfigService {
   static const diagnosticTasksKey = 'diagnostic_tasks';
 
-  late FirebaseRemoteConfig remoteConfig;
+  late final FirebaseRemoteConfig remoteConfig;
 
   FirebaseRemoteConfigService() {
     _init();

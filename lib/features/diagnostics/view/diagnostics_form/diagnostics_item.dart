@@ -1,4 +1,4 @@
-import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnostic_task_model.dart';
 import 'package:flutter/material.dart';
 
 class DiagnosticsItem extends StatelessWidget {

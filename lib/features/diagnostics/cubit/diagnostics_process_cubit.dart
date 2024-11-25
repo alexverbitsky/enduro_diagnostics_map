@@ -1,9 +1,12 @@
-import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/data/base_firebase_firestore_service.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnostic_task_model.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/model/report_model.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/repository/base_diagnostics_repository.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/util/pdf_builder/pdf_builder.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 
 part 'diagnostics_process_state.dart';
 
@@ -78,13 +81,24 @@ class DiagnosticsProcessCubit extends Cubit<DiagnosticsProcessState> {
         ),
       );
 
-      final pdfPath = await generatePdf(
+      final now = DateTime.now();
+      final formattedDate = DateFormat('dd.MM.yyyy, HH:mm').format(now);
+
+      final id = await _diagnosticsRepository.getNewReportId();
+
+      final report = ReportModel(
+        id: id,
+        date: formattedDate,
         diagnosticsTasks: currentState.diagnosticsTasks,
         customerName: currentState.customerName,
         motorcycleName: currentState.motorcycleName,
         extraWork: currentState.extraWork,
         mechanicName: currentState.mechanicName,
       );
+
+      await _diagnosticsRepository.submitReport(report);
+
+      final pdfPath = await generatePdf(report);
 
       emit(
         currentState.copyWith(

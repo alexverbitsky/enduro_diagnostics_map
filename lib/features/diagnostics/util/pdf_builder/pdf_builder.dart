@@ -1,24 +1,17 @@
 import 'dart:io';
 
-import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/model/report_model.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/util/pdf_builder/check_list_table.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/util/pdf_builder/report_item.dart';
 import 'package:enduro_diagnostics_map/gen/assets.gen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 
-Future<String> generatePdf({
-  required List<DiagnosticTaskModel> diagnosticsTasks,
-  String? customerName,
-  String? motorcycleName,
-  String? extraWork,
-  String? mechanicName,
-}) async {
+Future<String> generatePdf(ReportModel report) async {
   final pdf = Document();
   final nunitoRegularFont = await PdfGoogleFonts.nunitoRegular();
   final nunitoBoldFont = await PdfGoogleFonts.nunitoBold();
@@ -32,8 +25,11 @@ Future<String> generatePdf({
   final failureCheckmarkImage = await _getImageFileFromAssets(Assets.images.error.path);
   final failureCheckmarkWidget = MemoryImage(failureCheckmarkImage.readAsBytesSync());
 
-  final now = DateTime.now();
-  final formattedDate = DateFormat('dd.MM.yyyy, HH:mm').format(now);
+  final customerName = report.customerName;
+  final motorcycleName = report.motorcycleName;
+  final extraWork = report.extraWork;
+  final mechanicName = report.mechanicName;
+  final diagnosticsTasks = report.diagnosticsTasks;
 
   pdf.addPage(
     MultiPage(
@@ -50,7 +46,7 @@ Future<String> generatePdf({
           SizedBox(height: 48),
           ReportItem(
             title: 'Дата отчета: ',
-            value: formattedDate,
+            value: report.date,
           ),
           if (customerName != null)
             ReportItem(

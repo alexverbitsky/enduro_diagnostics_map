@@ -1,7 +1,7 @@
 import 'package:enduro_diagnostics_map/core/ui_kit/app_elevated_button.dart';
 import 'package:enduro_diagnostics_map/core/ui_kit/app_elevated_loading_button.dart';
 import 'package:enduro_diagnostics_map/core/ui_kit/app_input.dart';
-import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnistic_task_model.dart';
+import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnostic_task_model.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/view/diagnostics_form/diagnostics_item.dart';
 import 'package:flutter/material.dart';
 
