@@ -21,14 +21,15 @@ dependencies:
   intl: 0.19.0
   share_plus: 10.1.2
   flutter_native_splash: 2.4.2
-  flutter_launcher_icons: 0.14.1
   firebase_core: 3.7.0
   firebase_remote_config: 5.1.4
+  flutter_dotenv: 5.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: 4.0.0
+  flutter_launcher_icons: 0.14.1
 
 flutter_gen:
   # settings
@@ -47,6 +48,7 @@ flutter:
 
   assets:
    - assets/images/
+   - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
