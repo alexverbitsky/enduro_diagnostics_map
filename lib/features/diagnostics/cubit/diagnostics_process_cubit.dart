@@ -1,4 +1,3 @@
-import 'package:enduro_diagnostics_map/features/diagnostics/data/base_firebase_firestore_service.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/model/diagnostic_task_model.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/model/report_model.dart';
 import 'package:enduro_diagnostics_map/features/diagnostics/repository/base_diagnostics_repository.dart';
